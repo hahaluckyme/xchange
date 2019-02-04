@@ -1,25 +1,314 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './pill-transparent-pink.png';
 import './App.css';
 
 class App extends Component {
+  state = {
+    width: 800,
+    title: 'X-Change',
+    caption: `I just can't stop getting pounded by random caption-makers on the internet...`,
+    tagline: 'The Fast-Acting, Temporary, Gender-Swapping Pill',
+    gif_url: 'https://cl.phncdn.com/gif/20899791.gif',
+    gif_height_adjust: '-35',
+    signoff: '-Lucky',
+  }
+
+  componentDidMount() {
+    // need to defer loading to load font
+    window.addEventListener('load', this.draw);
+    // setTimeout(() => this.forceUpdate(), 50);
+    this.slowType(` But I don't think that's going to stop any time soon!`);
+  }
+
+  slowType(text) {
+    if (text.length === 0) {
+      return;
+    }
+    setTimeout(
+      () => {
+        this.setState(
+          prevState => ({caption: prevState.caption + text[0]}),
+          () => {
+            this.slowType(text.substr(1));
+          },
+        );
+      },
+      20,
+    );
+  }
+
+  componentWillUnmount() {
+    // need to defer loading to load font
+    window.removeEventListener('load', this.draw);
+  }
+
+  componentDidUpdate() {
+    this.draw();
+  }
+
+  getGifHeight() {
+    const gif_height = (this.gif.offsetHeight || 400)
+      + (parseInt(this.state.gif_height_adjust || 0));
+    return gif_height;
+  }
+
+  getHeight() {
+    if (!this.ctx) {
+      return 0;
+    }
+    return this.getGifHeight() + 8 + this.getCaptionLines().length * 29 + 24;
+  }
+
+  draw = () => {
+    this.ctx.clearRect(0, 0, this.state.width, this.getHeight());
+    this.drawTitle();
+    this.drawTagline();
+    this.drawCaptionBox(this.getGifHeight());
+    this.drawCaption();
+    this.drawSignoff();
+  }
+
+  getCaptionLines() {
+    const text = this.state.caption;
+    var i;
+    var j;
+    var width;
+    var max_width = this.state.width - 12;
+    var result;
+    const textBlocks = text.split('\n');
+    const lines = [];
+
+    textBlocks.forEach(text => {
+      var words = text.split(" ");
+      var currentLine = words[0];
+      for (var i = 1; i < words.length; i++) {
+        var word = words[i];
+        var width = this.ctx.measureText(currentLine + " " + word).width;
+        if (width < max_width) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+    });
+    return lines;
+  }
+
+  drawTitle() {
+    const text = this.state.title;
+    var x = 16;
+    var y = 66;
+    this.ctx.font = "bold 64px Aardvark Cafe";
+    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.miterLimit = 8;
+    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowBlur = 12;
+    this.ctx.lineWidth = 5;
+    this.ctx.textAlign = 'left';
+    this.ctx.strokeText(text, x, y);
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillText(text, x, y);
+  }
+
+  drawTagline() {
+    const text = this.state.tagline;
+    this.ctx.font = "24px Aardvark Cafe";
+    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.miterLimit = 4;
+    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowBlur = 2;
+    this.ctx.lineWidth = 2;
+    this.ctx.fillStyle = 'white';
+
+    const x = this.state.width - 8;
+    const fontSize = 16;
+    const y = this.getGifHeight() - 20;
+    const num_lines = this.getCaptionLines().length;
+    this.ctx.fillStyle = 'white';
+    this.ctx.textAlign = 'right';
+    this.ctx.strokeText( text, x, y );
+    this.ctx.fillText( text, x, y );
+  }
+
+  drawCaptionBox(y) {
+    this.ctx.shadowBlur = 0;
+    this.ctx.fillStyle = '#ffc0cb';
+    this.ctx.fillRect(0, y, 2000, 2000);
+  }
+
+  drawCaption() {
+    const text = this.state.caption;
+    this.ctx.font = "bold 24px Tahoma";
+    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.miterLimit = 8;
+    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowBlur = 2;
+    this.ctx.lineWidth = 4;
+    this.ctx.fillStyle = 'white';
+
+    const lines = this.getCaptionLines();
+    const y = this.getGifHeight();
+    const fontSize = 24;
+    this.ctx.fillStyle = 'white';
+    this.ctx.textAlign = 'left';
+    for (let i=0, j=lines.length; i<j; ++i ) {
+      this.ctx.strokeText( lines[i], 8, y + fontSize + (fontSize+5) * i );
+      this.ctx.fillText( lines[i], 8, y + fontSize + (fontSize+5) * i );
+    }
+  }
+
+  drawSignoff() {
+    const text = this.state.signoff;
+    this.ctx.font = "bold 24px Tahoma";
+    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.miterLimit = 8;
+    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowBlur = 2;
+    this.ctx.lineWidth = 4;
+    this.ctx.fillStyle = 'white';
+
+    const x = this.state.width - 8;
+    const fontSize = 24;
+    const y = this.getGifHeight();
+    const num_lines = this.getCaptionLines().length;
+    this.ctx.fillStyle = 'white';
+    this.ctx.textAlign = 'right';
+    this.ctx.strokeText( text, x, y + fontSize + (fontSize+5) * num_lines );
+    this.ctx.fillText( text, x, y + fontSize + (fontSize+5) * num_lines );
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="main">
+        <div className="content">
+          <div className="topbar">
+            <div className="logobox">
+              <img src={logo} className="logo" alt="logo" />
+            </div>
+            <div className="title">
+              X-Change Editor
+            </div>
+          </div>
+          <div className="input">
+            <span>
+              url
+            </span>
+            <input
+              onChange={event => this.setState({gif_url: event.target.value})}
+              value={this.state.gif_url}
+              style={{
+                width: '400px',
+              }}
+            />
+          </div>
+          <div className="input">
+            <span>
+              height adjust
+            </span>
+            <input
+              onChange={event => this.setState({gif_height_adjust: event.target.value})}
+              value={this.state.gif_height_adjust}
+              style={{
+                width: '100px',
+              }}
+            />
+          </div>
+          <div className="input">
+            <span>
+              pill
+            </span>
+            <input
+              onChange={event => this.setState({title: event.target.value})}
+              value={this.state.title}
+            />
+          </div>
+          <div className="input">
+            <span>
+              tagline
+            </span>
+            <input
+              onChange={event => this.setState({tagline: event.target.value})}
+              value={this.state.tagline}
+            />
+          </div>
+          <textarea
+            onChange={event => this.setState({caption: event.target.value})}
+            value={this.state.caption}
+          />
+          <div className="input">
+            <span>
+              signoff
+            </span>
+            <input
+              onChange={event => this.setState({signoff: event.target.value})}
+              value={this.state.signoff}
+            />
+          </div>
+          <div className="previewbar">
+            <span>Preview</span>
+            <a id="link"></a>
+            <input type="text" id="clipboard" style={{visibility: 'hidden'}} />
+            <button
+              onClick={() => {
+                const filename = this.state.signoff
+                  .split(',')[0]
+                  .replace(/[^a-zA-Z0-9_ ]/g, '')
+                  .substr(0, 15);
+                const link = document.getElementById('link');
+                link.setAttribute('download', `${filename}.png`);
+                link.setAttribute(
+                  'href',
+                  this.canvas
+                    .toDataURL("image/png")
+                    .replace("image/png", "image/octet-stream"),
+                );
+
+                link.click();
+
+                const input = document.getElementById("clipboard");
+                input.value = `
+                  ffmpeg
+                    -i "${this.state.gif_url}"
+                    -i ${filename}.png
+                    -filter_complex
+                      "[0]scale=800:-1[a];
+                      [1][a]overlay[b];
+                      [b][1]overlay"
+                    ${filename}.gif
+                `.split('\n').map(e => e.trim()).join(' ').trim();
+                input.select();
+                document.execCommand("copy");
+              }}
+            >
+              download and copy ffmpeg command
+            </button>
+          </div>
+          <div className="preview">
+            <canvas
+              ref={ref => {
+                if (ref) {
+                  this.canvas = ref;
+                  this.ctx = ref.getContext('2d');
+                }
+              }}
+              width={this.state.width}
+              height={this.getHeight()}
+            />
+            <img
+              onLoad={event => {
+                if (event.target) {
+                  this.gif = event.target;
+                  setInterval(() => this.forceUpdate(), 100);
+                }
+              }}
+              className="gif"
+              width={800}
+              src={this.state.gif_url}
+            />
+          </div>
+        </div>
       </div>
     );
   }

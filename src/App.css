@@ -1,28 +1,97 @@
-.App {
-  text-align: center;
+body {
+  background-color: #add8e6;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+.main {
   min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  font-family: 'Aardvark Cafe';
+  position: absolute;
+  width: 100vw;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  width: 800px;
+}
+
+.main > * {
+  margin-top: 20px;
+}
+
+.topbar {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-filter: drop-shadow(5px 5px 5px #dd2bbc);
+  filter: drop-shadow(5px 5px 5px #dd2bbc);
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input > input {
+  margin-left: 20px;
+  width: 400px;
+}
+
+.logo {
+  animation: logo-spin infinite 10s linear;
+  height: 10vmin;
+}
+
+.title {
+  margin-left: 20px;
+}
+
+.previewbar {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.previewbar > button {
+  margin-left: 20px;
+}
+
+.preview {
+  position: relative;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+canvas {
+  position: absolute;
+  z-index: 1;
 }
 
-@keyframes App-logo-spin {
+.gif {
+  position: absolute;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+}
+
+@font-face {
+  font-family: 'Aardvark Cafe';
+  src: url('./Aardvark_Cafe.ttf');
+}
+
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
