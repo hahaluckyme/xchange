@@ -32,6 +32,10 @@ ffmpeg -i "https://giant.gfycat.com/BabyishPleasingFantail.webm" -i "Lucky.png" 
 
 Go to the same folder that contains the downloaded image. Right click the folder and go to "Command Prompts" -> "Command Prompt". Run the command there. The command will download the image and attach that frame to it.
 
+Alternatively, if you don't want to download `ffmpeg`, you can use this online ffmpeg site to run it online. You will have to upload the frame image, and write the command on the site to match the one given (i.e. remove the `ffmpeg -i "Lucky.png"` at the start and move the `"Lucky.webm"` at the end into the filename box)
+
+https://ffmpeg.run/
+
 ## 4. Upload and post in the subreddit
 Upload to Gfycat:
 

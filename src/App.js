@@ -434,12 +434,12 @@ class App extends Component {
                 const input = document.getElementById("clipboard");
                 input.value = `
                   ffmpeg
-                    -i "${this.state.gif_url}"
                     -i "${filename}.png"
+                    -i "${this.state.gif_url}"
                     -filter_complex
-                      "[0]scale=800:-1[a];
-                      [1][a]overlay[b];
-                      [b][1]overlay"
+                      "[1]scale=800:-1[a];
+                      [0][a]overlay[b];
+                      [b][0]overlay"
                     "${filename}.${extension}"
                 `.split('\n').map(e => e.trim()).join(' ').trim();
                 input.select();
