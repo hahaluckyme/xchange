@@ -296,6 +296,7 @@ class App extends Component {
             />
           </div>
           <div className="previewbar">
+            <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
             <span>Preview</span>
             <a id="link"></a>
             <input type="text" id="clipboard" />
