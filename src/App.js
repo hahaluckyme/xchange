@@ -16,6 +16,7 @@ class App extends Component {
 
   componentDidMount() {
     // need to defer loading to load font
+    document.title = 'X-Change Editor';
     window.addEventListener('load', this.draw);
     // setTimeout(() => this.forceUpdate(), 50);
     this.slowType(` I think he might be a little mad at me for always taking his pills...`);
