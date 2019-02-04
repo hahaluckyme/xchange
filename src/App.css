@@ -26,12 +26,15 @@ body {
 }
 
 .topbar {
+  top: 12px;
+  position: fixed;
   align-self: flex-start;
   display: flex;
   flex-direction: row;
   align-items: center;
   -webkit-filter: drop-shadow(5px 5px 5px #dd2bbc);
   filter: drop-shadow(5px 5px 5px #dd2bbc);
+  z-index: -1;
 }
 
 .input {
@@ -47,7 +50,7 @@ body {
 
 .logo {
   animation: logo-spin infinite 10s linear;
-  height: 10vmin;
+  height: 50px;
 }
 
 .title {
@@ -60,7 +63,7 @@ body {
   align-items: center;
 }
 
-.previewbar > button {
+.previewbar > * {
   margin-left: 20px;
 }
 

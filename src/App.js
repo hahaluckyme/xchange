@@ -6,18 +6,19 @@ class App extends Component {
   state = {
     width: 800,
     title: 'X-Change',
-    caption: `I just can't stop getting pounded by random caption-makers on the internet...`,
+    caption: `  I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\n  I was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,
     tagline: 'The Fast-Acting, Temporary, Gender-Swapping Pill',
-    gif_url: 'https://cl.phncdn.com/gif/20899791.gif',
-    gif_height_adjust: '-35',
-    signoff: '-Lucky',
+    gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
+    gif_height_adjust: '0',
+    signoff: '-Lucky, not finishing her project',
+    show_advanced: false,
   }
 
   componentDidMount() {
     // need to defer loading to load font
     window.addEventListener('load', this.draw);
     // setTimeout(() => this.forceUpdate(), 50);
-    this.slowType(` But I don't think that's going to stop any time soon!`);
+    this.slowType(` I think he might be a little mad at me for always taking his pills...`);
   }
 
   slowType(text) {
@@ -47,8 +48,8 @@ class App extends Component {
   }
 
   getGifHeight() {
-    const gif_height = (this.gif.offsetHeight || 400)
-      + (parseInt(this.state.gif_height_adjust || 0));
+    const gif_height = (this.gif && this.gif.offsetHeight || 400)
+      - (parseInt(this.state.gif_height_adjust || 0));
     return gif_height;
   }
 
@@ -179,6 +180,34 @@ class App extends Component {
     this.ctx.fillText( text, x, y + fontSize + (fontSize+5) * num_lines );
   }
 
+  _renderContent() {
+    if (this.state.gif_url.substr(-5) === '.webm') {
+      return (
+        <video width="800" playsinline autoPlay muted loop>
+          <source src={this.state.gif_url} type="video/mp4" />
+        </video>
+      )
+    } else if (
+      this.state.gif_url.substr(-4) === '.gif'
+      || this.state.gif_url.substr(-4) === '.png'
+      || this.state.gif_url.substr(-4) === '.jpg'
+    ) {
+      return (
+        <img
+          onLoad={event => {
+            if (event.target) {
+              this.gif = event.target;
+              setInterval(() => this.forceUpdate(), 100);
+            }
+          }}
+          className="gif"
+          width={800}
+          src={this.state.gif_url}
+        />
+      )
+    }
+  }
+
   render() {
     return (
       <div className="main">
@@ -203,36 +232,48 @@ class App extends Component {
               }}
             />
           </div>
-          <div className="input">
-            <span>
-              height adjust
-            </span>
-            <input
-              onChange={event => this.setState({gif_height_adjust: event.target.value})}
-              value={this.state.gif_height_adjust}
-              style={{
-                width: '100px',
-              }}
-            />
-          </div>
-          <div className="input">
-            <span>
-              pill
-            </span>
-            <input
-              onChange={event => this.setState({title: event.target.value})}
-              value={this.state.title}
-            />
-          </div>
-          <div className="input">
-            <span>
-              tagline
-            </span>
-            <input
-              onChange={event => this.setState({tagline: event.target.value})}
-              value={this.state.tagline}
-            />
-          </div>
+          {
+            this.state.show_advanced ? (
+              <>
+                <div className="input">
+                  <span>
+                    height adjust
+                  </span>
+                  <input
+                    onChange={event => this.setState({gif_height_adjust: event.target.value})}
+                    value={this.state.gif_height_adjust}
+                    style={{
+                      width: '100px',
+                    }}
+                  />
+                </div>
+                <div className="input">
+                  <span>
+                    pill
+                  </span>
+                  <input
+                    onChange={event => this.setState({title: event.target.value})}
+                    value={this.state.title}
+                  />
+                </div>
+                <div className="input">
+                  <span>
+                    tagline
+                  </span>
+                  <input
+                    onChange={event => this.setState({tagline: event.target.value})}
+                    value={this.state.tagline}
+                  />
+                </div>
+              </>
+            ) : (
+              <button
+                onClick={() => this.setState({show_advanced: true})}
+              >
+                advanced
+              </button>
+            )
+          }
           <textarea
             onChange={event => this.setState({caption: event.target.value})}
             value={this.state.caption}
@@ -249,7 +290,7 @@ class App extends Component {
           <div className="previewbar">
             <span>Preview</span>
             <a id="link"></a>
-            <input type="text" id="clipboard" style={{visibility: 'hidden'}} />
+            <input type="text" id="clipboard" />
             <button
               onClick={() => {
                 const filename = this.state.signoff
@@ -296,17 +337,7 @@ class App extends Component {
               width={this.state.width}
               height={this.getHeight()}
             />
-            <img
-              onLoad={event => {
-                if (event.target) {
-                  this.gif = event.target;
-                  setInterval(() => this.forceUpdate(), 100);
-                }
-              }}
-              className="gif"
-              width={800}
-              src={this.state.gif_url}
-            />
+            {this._renderContent(this.state.gif_url)}
           </div>
         </div>
       </div>
