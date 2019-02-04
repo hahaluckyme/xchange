@@ -312,12 +312,12 @@ class App extends Component {
                 input.value = `
                   ffmpeg
                     -i "${this.state.gif_url}"
-                    -i ${filename}.png
+                    -i "${filename}.png"
                     -filter_complex
                       "[0]scale=800:-1[a];
                       [1][a]overlay[b];
                       [b][1]overlay"
-                    ${filename}.gif
+                    "${filename}.gif"
                 `.split('\n').map(e => e.trim()).join(' ').trim();
                 input.select();
                 document.execCommand("copy");

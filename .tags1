@@ -4,22 +4,26 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-body	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^body {$/;"	function	line:1
-.main	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.main {$/;"	function	line:5
-.content	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.content {$/;"	function	line:14
-.main > *	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.main > * {$/;"	function	line:24
-.topbar	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.topbar {$/;"	function	line:28
-.input	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.input {$/;"	function	line:40
-.input > input	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.input > input {$/;"	function	line:46
-.logo	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.logo {$/;"	function	line:51
-.title	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.title {$/;"	function	line:56
-.previewbar	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.previewbar {$/;"	function	line:60
-.previewbar > *	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.previewbar > * {$/;"	function	line:66
-.preview	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.preview {$/;"	function	line:70
-canvas	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^canvas {$/;"	function	line:78
-.gif	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^.gif {$/;"	function	line:83
-textarea	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^textarea {$/;"	function	line:87
-@font-face	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^@font-face {$/;"	function	line:92
-@keyframes logo-spin	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^@keyframes logo-spin {$/;"	function	line:97
-from	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^  from {$/;"	function	line:98
-to	C:\Users\Lucky\Dropbox\projects\xchange\src\App.css	/^  to {$/;"	function	line:101
+class.width	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    width: 800,$/;"	property	line:7
+class.title	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    title: 'X-Change',$/;"	property	line:8
+class.caption	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    caption: `  I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\\n  I was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,$/;"	property	line:9
+componentDidMount	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  componentDidMount() {$/;"	function	line:17
+slowType	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  slowType(text) {$/;"	function	line:24
+componentWillUnmount	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  componentWillUnmount() {$/;"	function	line:41
+componentDidUpdate	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  componentDidUpdate() {$/;"	function	line:46
+getGifHeight	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  getGifHeight() {$/;"	function	line:50
+getHeight	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  getHeight() {$/;"	function	line:56
+getCaptionLines	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  getCaptionLines() {$/;"	function	line:72
+i	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var i;$/;"	variable	line:74
+j	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var j;$/;"	variable	line:75
+width	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var width;$/;"	variable	line:76
+result	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var result;$/;"	variable	line:78
+drawTitle	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawTitle() {$/;"	function	line:100
+x	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var x = 16;$/;"	variable	line:102
+y	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^    var y = 66;$/;"	variable	line:103
+drawTagline	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawTagline() {$/;"	function	line:116
+drawCaptionBox	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawCaptionBox(y) {$/;"	function	line:136
+drawCaption	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawCaption() {$/;"	function	line:142
+drawSignoff	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawSignoff() {$/;"	function	line:163
+_renderContent	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  _renderContent() {$/;"	function	line:183
+render	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  render() {$/;"	function	line:211
