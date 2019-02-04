@@ -8,16 +8,23 @@ class App extends Component {
     title: 'X-Change',
     caption: `  I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\n  I was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,
     tagline: 'The Fast-Acting, Temporary, Gender-Swapping Pill',
-    gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
+    gif_url: 'https://giant.gfycat.com/GoodnaturedFeistyBuzzard.webm',
     gif_height_adjust: '0',
     signoff: '-Lucky, not finishing her project',
     show_advanced: false,
+    read_only: false,
   }
 
   constructor() {
     super();
     try {
       const url = new URL(window.location.href);
+      const read_only = url.searchParams.get('read_only') || false;
+      this.state = {
+        ...this.state,
+        read_only: read_only,
+      };
+
       const data = url.searchParams.get('data');
       const save_data = JSON.parse(Buffer.from(data, 'base64'));
       const {
@@ -36,8 +43,8 @@ class App extends Component {
         gif_url,
         gif_height_adjust,
         signoff,
+        read_only, // not part of save data
       };
-      console.log(save_data);
     } catch (e) { }
   }
 
@@ -49,9 +56,12 @@ class App extends Component {
     const data = url.searchParams.get('data');
     if (data == null) {
       this.slowType(` I think he might be a little mad at me for always taking his pills...`);
-    } else {
-      setTimeout(() => this.forceUpdate(), 50);
     }
+    setInterval(this.poll, 50);
+  }
+
+  poll = () => {
+    this.forceUpdate();
   }
 
   slowType(text) {
@@ -81,14 +91,14 @@ class App extends Component {
   }
 
   getGifHeight() {
-    const gif_height = (this.gif && this.gif.offsetHeight || 400)
+    const gif_height = ((this.gif && this.gif.offsetHeight) || 400)
       - (parseInt(this.state.gif_height_adjust || 0));
     return gif_height;
   }
 
   getHeight() {
     if (!this.ctx) {
-      return 0;
+      return 1;
     }
     return this.getGifHeight() + 8 + this.getCaptionLines().length * 29 + 24;
   }
@@ -216,7 +226,19 @@ class App extends Component {
   _renderContent() {
     if (this.state.gif_url.substr(-5) === '.webm') {
       return (
-        <video width="800" playsInline autoPlay muted loop>
+        <video
+          ref={ref => {
+            if (ref) {
+              this.gif = ref;
+            }
+          }}
+          className="gif"
+          width="800"
+          playsInline
+          autoPlay
+          muted
+          loop
+        >
           <source src={this.state.gif_url} type="video/mp4" />
         </video>
       )
@@ -227,10 +249,9 @@ class App extends Component {
     ) {
       return (
         <img
-          onLoad={event => {
-            if (event.target) {
-              this.gif = event.target;
-              setInterval(() => this.forceUpdate(), 100);
+          ref={ref => {
+            if (ref) {
+              this.gif = ref;
             }
           }}
           className="gif"
@@ -240,8 +261,18 @@ class App extends Component {
       )
     } else {
       return (
-        <div style={{display: 'table', height: '400px'}}>
-          <div style={{display: 'table-cell', verticalAlign: 'middle'}}>
+        <div
+          ref={ref => {
+            if (ref) {
+              this.gif = ref;
+            }
+          }}
+          className="gif"
+          style={{display: 'table', height: '400px'}}
+        >
+          <div
+            style={{display: 'table-cell', verticalAlign: 'middle'}}
+          >
             I'm so sorry, I can't render that filetype.
           </div>
         </div>
@@ -249,7 +280,35 @@ class App extends Component {
     }
   }
 
+  _renderPreview() {
+    return (
+      <div className="preview">
+        {this._renderContent(this.state.gif_url)}
+        <canvas
+          ref={ref => {
+            if (ref) {
+              this.canvas = ref;
+              this.ctx = ref.getContext('2d');
+            }
+          }}
+          width={this.state.width}
+          height={this.getHeight()}
+        />
+      </div>
+    );
+  }
+
   render() {
+    if (this.state.read_only) {
+      return (
+        <div className="readonlycontainer">
+          <div className="readonly">
+            {this._renderPreview()}
+          </div>
+        </div>
+      );
+    }
+
     const {
       title,
       caption,
@@ -347,9 +406,9 @@ class App extends Component {
             />
           </div>
           <div className="previewbar">
-            <a href={`/?data=${save_link}`}>save</a>
             <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
-            <span>Preview</span>
+            <a href={`/?data=${save_link}`}>save</a>
+            <a href={`/?read_only=true&data=${save_link}`}>preview</a>
             <a id="link"></a>
             <input type="text" id="clipboard" />
             <button
@@ -390,19 +449,7 @@ class App extends Component {
               download and copy ffmpeg command
             </button>
           </div>
-          <div className="preview">
-            <canvas
-              ref={ref => {
-                if (ref) {
-                  this.canvas = ref;
-                  this.ctx = ref.getContext('2d');
-                }
-              }}
-              width={this.state.width}
-              height={this.getHeight()}
-            />
-            {this._renderContent(this.state.gif_url)}
-          </div>
+          {this._renderPreview()}
         </div>
       </div>
     );
