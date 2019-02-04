@@ -27,7 +27,7 @@ Clicking the download link will download the frame image with the text. It will 
 
 example:
 ```
-ffmpeg -i "https://giant.gfycat.com/BabyishPleasingFantail.webm" -i "Lucky.png" -filter_complex "[0]scale=800:-1[a]; [1][a]overlay[b]; [b][1]overlay" "Lucky.webm"
+ffmpeg -i "Lucky.png" -i "https://giant.gfycat.com/BabyishPleasingFantail.webm" -filter_complex "[1]scale=800:-1[a]; [0][a]overlay[b]; [b][0]overlay" "Lucky.webm"
 ```
 
 Go to the same folder that contains the downloaded image. Right click the folder and go to "Command Prompts" -> "Command Prompt". Run the command there. The command will download the image and attach that frame to it.
