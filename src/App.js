@@ -407,8 +407,8 @@ class App extends Component {
           </div>
           <div className="previewbar">
             <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
-            <a href={`/?data=${save_link}`}>save</a>
-            <a href={`/?read_only=true&data=${save_link}`}>preview</a>
+            <a href={`./?data=${save_link}`}>save</a>
+            <a href={`./?read_only=true&data=${save_link}`}>preview</a>
             <a id="link"></a>
             <input type="text" id="clipboard" />
             <button
