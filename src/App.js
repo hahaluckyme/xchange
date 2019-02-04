@@ -14,12 +14,44 @@ class App extends Component {
     show_advanced: false,
   }
 
+  constructor() {
+    super();
+    try {
+      const url = new URL(window.location.href);
+      const data = url.searchParams.get('data');
+      const save_data = JSON.parse(Buffer.from(data, 'base64'));
+      const {
+        title,
+        caption,
+        tagline,
+        gif_url,
+        gif_height_adjust,
+        signoff,
+      } = save_data;
+      this.state = {
+        ...this.state,
+        title,
+        caption,
+        tagline,
+        gif_url,
+        gif_height_adjust,
+        signoff,
+      };
+      console.log(save_data);
+    } catch (e) { }
+  }
+
   componentDidMount() {
     // need to defer loading to load font
     document.title = 'X-Change Editor';
     window.addEventListener('load', this.draw);
-    // setTimeout(() => this.forceUpdate(), 50);
-    this.slowType(` I think he might be a little mad at me for always taking his pills...`);
+    const url = new URL(window.location.href);
+    const data = url.searchParams.get('data');
+    if (data == null) {
+      this.slowType(` I think he might be a little mad at me for always taking his pills...`);
+    } else {
+      setTimeout(() => this.forceUpdate(), 50);
+    }
   }
 
   slowType(text) {
@@ -184,7 +216,7 @@ class App extends Component {
   _renderContent() {
     if (this.state.gif_url.substr(-5) === '.webm') {
       return (
-        <video width="800" playsinline autoPlay muted loop>
+        <video width="800" playsInline autoPlay muted loop>
           <source src={this.state.gif_url} type="video/mp4" />
         </video>
       )
@@ -218,6 +250,24 @@ class App extends Component {
   }
 
   render() {
+    const {
+      title,
+      caption,
+      tagline,
+      gif_url,
+      gif_height_adjust,
+      signoff,
+    } = this.state;
+    const save_data = {
+      title,
+      caption,
+      tagline,
+      gif_url,
+      gif_height_adjust,
+      signoff,
+    };
+    const save_link = Buffer.from(JSON.stringify(save_data)).toString("base64");
+
     return (
       <div className="main">
         <div className="content">
@@ -297,6 +347,7 @@ class App extends Component {
             />
           </div>
           <div className="previewbar">
+            <a href={`/?data=${save_link}`}>save</a>
             <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
             <span>Preview</span>
             <a id="link"></a>
