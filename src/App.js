@@ -205,6 +205,14 @@ class App extends Component {
           src={this.state.gif_url}
         />
       )
+    } else {
+      return (
+        <div style={{display: 'table', height: '400px'}}>
+          <div style={{display: 'table-cell', verticalAlign: 'middle'}}>
+            I'm so sorry, I can't render that filetype.
+          </div>
+        </div>
+      )
     }
   }
 
@@ -308,6 +316,9 @@ class App extends Component {
 
                 link.click();
 
+                const pieces = this.state.gif_url.split('.');
+                const extension = pieces[pieces.length-1];
+
                 const input = document.getElementById("clipboard");
                 input.value = `
                   ffmpeg
@@ -317,7 +328,7 @@ class App extends Component {
                       "[0]scale=800:-1[a];
                       [1][a]overlay[b];
                       [b][1]overlay"
-                    "${filename}.gif"
+                    "${filename}.${extension}"
                 `.split('\n').map(e => e.trim()).join(' ').trim();
                 input.select();
                 document.execCommand("copy");

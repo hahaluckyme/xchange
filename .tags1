@@ -26,4 +26,4 @@ drawCaptionBox	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawCaptio
 drawCaption	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawCaption() {$/;"	function	line:142
 drawSignoff	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  drawSignoff() {$/;"	function	line:163
 _renderContent	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  _renderContent() {$/;"	function	line:183
-render	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  render() {$/;"	function	line:211
+render	C:\Users\Lucky\Dropbox\projects\xchange\src\App.js	/^  render() {$/;"	function	line:219
