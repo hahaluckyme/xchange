@@ -6,7 +6,7 @@ class App extends Component {
   state = {
     width: 800,
     title: 'X-Change',
-    caption: `  I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\n  I was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,
+    caption: `I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\n\nI was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,
     tagline: 'The Fast-Acting, Temporary, Gender-Swapping Pill',
     gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
     gif_height_adjust: '35',
@@ -100,7 +100,7 @@ class App extends Component {
     if (!this.ctx) {
       return 1;
     }
-    return this.getGifHeight() + 8 + this.getCaptionLines().length * 29 + 24;
+    return this.getGifHeight() + 8 + (this.getCaptionLines().length + 1) * 29 + 24;
   }
 
   draw = () => {
@@ -215,7 +215,7 @@ class App extends Component {
 
     const x = this.state.width - 8;
     const fontSize = 24;
-    const y = this.getGifHeight();
+    const y = this.getGifHeight() + (fontSize+5);
     const num_lines = this.getCaptionLines().length;
     this.ctx.fillStyle = 'white';
     this.ctx.textAlign = 'right';
