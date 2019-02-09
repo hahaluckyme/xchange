@@ -64,6 +64,7 @@ class App extends Component {
     if (data == null) {
       this.slowType(` I think he might be a little mad at me for always taking his pills...`);
     }
+    this.textArea.focus();
     setInterval(this.poll, 50);
   }
 
@@ -418,7 +419,7 @@ class App extends Component {
           <textarea
             ref={ref => {
               if (ref) {
-                ref.focus();
+                this.textArea = ref;
               }
             }}
             onChange={event => this.setState({caption: event.target.value})}
