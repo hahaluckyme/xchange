@@ -1,14 +1,14 @@
 {
-  "main.css": "/xchange/static/css/main.2c7d2886.chunk.css",
-  "main.js": "/xchange/static/js/main.f7e7c886.chunk.js",
-  "main.js.map": "/xchange/static/js/main.f7e7c886.chunk.js.map",
-  "static/js/1.bd906576.chunk.js": "/xchange/static/js/1.bd906576.chunk.js",
-  "static/js/1.bd906576.chunk.js.map": "/xchange/static/js/1.bd906576.chunk.js.map",
+  "main.css": "/xchange/static/css/main.9d535201.chunk.css",
+  "main.js": "/xchange/static/js/main.d01210b2.chunk.js",
+  "main.js.map": "/xchange/static/js/main.d01210b2.chunk.js.map",
+  "static/js/1.151f6d5a.chunk.js": "/xchange/static/js/1.151f6d5a.chunk.js",
+  "static/js/1.151f6d5a.chunk.js.map": "/xchange/static/js/1.151f6d5a.chunk.js.map",
   "runtime~main.js": "/xchange/static/js/runtime~main.6533b053.js",
   "runtime~main.js.map": "/xchange/static/js/runtime~main.6533b053.js.map",
   "static/media/App.css": "/xchange/static/media/Aardvark_Cafe.9911a64a.ttf",
-  "static/css/main.2c7d2886.chunk.css.map": "/xchange/static/css/main.2c7d2886.chunk.css.map",
+  "static/css/main.9d535201.chunk.css.map": "/xchange/static/css/main.9d535201.chunk.css.map",
   "index.html": "/xchange/index.html",
-  "precache-manifest.3da40b887c9dd351cdcd67123af9ded2.js": "/xchange/precache-manifest.3da40b887c9dd351cdcd67123af9ded2.js",
+  "precache-manifest.13c31981b69f90b14f42ae0f37752921.js": "/xchange/precache-manifest.13c31981b69f90b14f42ae0f37752921.js",
   "service-worker.js": "/xchange/service-worker.js"
 }
