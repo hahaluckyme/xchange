@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import logo from './pill-transparent-pink.png';
 import './App.css';
 
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-134204838-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 class App extends Component {
   state = {
     width: 800,
@@ -13,6 +17,7 @@ class App extends Component {
     signoff: '-Lucky, not finishing her project',
     show_advanced: false,
     read_only: false,
+    render_as_raw: false,
   }
 
   constructor() {
@@ -34,6 +39,7 @@ class App extends Component {
         gif_url,
         gif_height_adjust,
         signoff,
+        render_as_raw,
       } = save_data;
       this.state = {
         ...this.state,
@@ -43,6 +49,7 @@ class App extends Component {
         gif_url,
         gif_height_adjust,
         signoff,
+        render_as_raw,
         read_only, // not part of save data
       };
     } catch (e) { }
@@ -77,7 +84,7 @@ class App extends Component {
           },
         );
       },
-      20,
+      10,
     );
   }
 
@@ -100,7 +107,7 @@ class App extends Component {
     if (!this.ctx) {
       return 1;
     }
-    return this.getGifHeight() + 8 + (this.getCaptionLines().length + 1) * 29 + 24;
+    return this.getGifHeight() + 8 + (this.getCaptionLines().length) * 29 + 48;
   }
 
   draw = () => {
@@ -113,11 +120,13 @@ class App extends Component {
   }
 
   getCaptionLines() {
-    const text = this.state.caption;
+    const text = this.state.render_as_raw
+      ? this.state.caption
+      : ('    ' + this.state.caption.replace(/\n+\s*/g, '\n\n    ').trim());
     var i;
     var j;
     var width;
-    var max_width = this.state.width - 12;
+    var max_width = this.state.width - 30;
     var result;
     const textBlocks = text.split('\n');
     const lines = [];
@@ -137,6 +146,7 @@ class App extends Component {
       }
       lines.push(currentLine);
     });
+    lines.push('');
     return lines;
   }
 
@@ -183,7 +193,6 @@ class App extends Component {
   }
 
   drawCaption() {
-    const text = this.state.caption;
     this.ctx.font = "bold 24px Tahoma";
     this.ctx.strokeStyle = '#dd2bbc';
     this.ctx.miterLimit = 8;
@@ -198,8 +207,8 @@ class App extends Component {
     this.ctx.fillStyle = 'white';
     this.ctx.textAlign = 'left';
     for (let i=0, j=lines.length; i<j; ++i ) {
-      this.ctx.strokeText( lines[i], 8, y + fontSize + (fontSize+5) * i );
-      this.ctx.fillText( lines[i], 8, y + fontSize + (fontSize+5) * i );
+      this.ctx.strokeText( lines[i], 16, y + fontSize + (fontSize+5) * i + 12);
+      this.ctx.fillText( lines[i], 16, y + fontSize + (fontSize+5) * i + 12);
     }
   }
 
@@ -213,9 +222,9 @@ class App extends Component {
     this.ctx.lineWidth = 4;
     this.ctx.fillStyle = 'white';
 
-    const x = this.state.width - 8;
+    const x = this.state.width - 16;
     const fontSize = 24;
-    const y = this.getGifHeight() + (fontSize+5);
+    const y = this.getGifHeight() + 12;
     const num_lines = this.getCaptionLines().length;
     this.ctx.fillStyle = 'white';
     this.ctx.textAlign = 'right';
@@ -355,6 +364,20 @@ class App extends Component {
               <>
                 <div className="input">
                   <span>
+                    prettify?
+                  </span>
+                  <input
+                    onChange={event => this.setState(prevState => ({render_as_raw: !prevState.render_as_raw}))}
+                    name="isGoing"
+                    type="checkbox"
+                    checked={!this.state.render_as_raw}
+                    style={{
+                      width: '100px',
+                    }}
+                  />
+                </div>
+                <div className="input">
+                  <span>
                     height adjust
                   </span>
                   <input
@@ -393,6 +416,11 @@ class App extends Component {
             )
           }
           <textarea
+            ref={ref => {
+              if (ref) {
+                ref.focus();
+              }
+            }}
             onChange={event => this.setState({caption: event.target.value})}
             value={this.state.caption}
           />
