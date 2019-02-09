@@ -1,10 +1,8 @@
+import ReactGA from 'react-ga';
+
 import React, { Component } from 'react';
 import logo from './pill-transparent-pink.png';
 import './App.css';
-
-import ReactGA from 'react-ga';
-ReactGA.initialize('UA-134204838-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 class App extends Component {
   state = {
@@ -57,6 +55,8 @@ class App extends Component {
 
   componentDidMount() {
     // need to defer loading to load font
+    ReactGA.initialize('UA-134204838-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
     document.title = 'X-Change Editor';
     window.addEventListener('load', this.draw);
     const url = new URL(window.location.href);
