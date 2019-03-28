@@ -13,6 +13,8 @@ class App extends Component {
     gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
     gif_height_adjust: '35',
     signoff: '-Lucky, not finishing her project',
+    accentColor: '#dd2bbc', // Pink: #dd2bbc, Purple: 800080, Blue: 1d61d1, Wild: #0a3a13
+    captionBoxColor: '#ffc0cb', // Pink: #ffc0cb, Purple: ac62f4, Blue: acdeff, Wild: #1f8231
     show_advanced: false,
     read_only: false,
     render_as_raw: false,
@@ -38,6 +40,8 @@ class App extends Component {
         gif_height_adjust,
         signoff,
         render_as_raw,
+        accentColor,
+        captionboxColor,
       } = save_data;
       this.state = {
         ...this.state,
@@ -48,7 +52,9 @@ class App extends Component {
         gif_height_adjust,
         signoff,
         render_as_raw,
-        read_only, // not part of save data
+        read_only, // not part of save data       
+        accentColor,
+        captionboxColor,
       };
     } catch (e) { }
   }
@@ -104,7 +110,7 @@ class App extends Component {
     return gif_height;
   }
 
-  getHeight() {
+  getHeight () {
     if (!this.ctx) {
       return 1;
     }
@@ -156,9 +162,9 @@ class App extends Component {
     var x = 16;
     var y = 66;
     this.ctx.font = "bold 64px Aardvark Cafe";
-    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.strokeStyle = this.state.accentColor;
     this.ctx.miterLimit = 8;
-    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowColor = this.state.accentColor;
     this.ctx.shadowBlur = 12;
     this.ctx.lineWidth = 5;
     this.ctx.textAlign = 'left';
@@ -170,9 +176,9 @@ class App extends Component {
   drawTagline() {
     const text = this.state.tagline;
     this.ctx.font = "24px Aardvark Cafe";
-    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.strokeStyle = this.state.accentColor;
     this.ctx.miterLimit = 4;
-    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowColor = this.state.accentColor;
     this.ctx.shadowBlur = 2;
     this.ctx.lineWidth = 2;
     this.ctx.fillStyle = 'white';
@@ -189,15 +195,15 @@ class App extends Component {
 
   drawCaptionBox(y) {
     this.ctx.shadowBlur = 0;
-    this.ctx.fillStyle = '#ffc0cb';
+    this.ctx.fillStyle = this.state.captionBoxColor;
     this.ctx.fillRect(0, y, 2000, 2000);
   }
 
   drawCaption() {
     this.ctx.font = "bold 24px Tahoma";
-    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.strokeStyle = this.state.accentColor;
     this.ctx.miterLimit = 8;
-    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowColor = this.state.accentColor;
     this.ctx.shadowBlur = 2;
     this.ctx.lineWidth = 4;
     this.ctx.fillStyle = 'white';
@@ -216,9 +222,9 @@ class App extends Component {
   drawSignoff() {
     const text = this.state.signoff;
     this.ctx.font = "bold 24px Tahoma";
-    this.ctx.strokeStyle = '#dd2bbc';
+    this.ctx.strokeStyle = this.state.accentColor;
     this.ctx.miterLimit = 8;
-    this.ctx.shadowColor = '#dd2bbc';
+    this.ctx.shadowColor = this.state.accentColor;
     this.ctx.shadowBlur = 2;
     this.ctx.lineWidth = 4;
     this.ctx.fillStyle = 'white';
@@ -325,7 +331,9 @@ class App extends Component {
       tagline,
       gif_url,
       gif_height_adjust,
-      signoff,
+      signoff,      
+      accentColor,
+      captionboxColor,
     } = this.state;
     const save_data = {
       title,
@@ -334,6 +342,8 @@ class App extends Component {
       gif_url,
       gif_height_adjust,
       signoff,
+      accentColor,
+      captionboxColor,
     };
     const save_link = Buffer.from(JSON.stringify(save_data)).toString("base64");
 
@@ -406,6 +416,26 @@ class App extends Component {
                     onChange={event => this.setState({tagline: event.target.value})}
                     value={this.state.tagline}
                   />
+                </div>
+                <div className="input">
+                  <span>
+                    accent color
+                  </span>
+                  <input
+                    onChange={event => this.setState({accentColor: event.target.value})}
+                    value={this.state.accentColor}
+                    >
+                  </input>
+                </div>
+                <div className="input">
+                  <span>
+                    caption box color
+                  </span>
+                  <input
+                    onChange={event => this.setState({captionBoxColor: event.target.value})}
+                    value={this.state.captionBoxColor}
+                    >
+                  </input>
                 </div>
               </>
             ) : (
