@@ -78,7 +78,6 @@ body {
 }
 
 .previewbar {
-  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -106,6 +105,41 @@ canvas {
 textarea {
   width: 100%;
   height: 100px;
+}
+
+.selectorbar {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  top:0;
+}
+
+.selectorbar > * {
+  margin-right: 0;
+}
+
+.selectorbutton {
+  height: 20px;
+  width: 33%;
+  border: 2px white solid;
+}
+
+.selectorbutton:nth-child(n + 2){
+  border-left: none;
+}
+
+.selectorbutton.pink {
+  background-color: #ffc0cb;
+}
+
+.selectorbutton.blue {
+  background-color: #acdeff;
+}
+
+.selectorbutton.purple {
+  background-color: #ac62f4;
 }
 
 @font-face {
