@@ -13,8 +13,8 @@ class App extends Component {
     gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
     gif_height_adjust: '35',
     signoff: '-Lucky, not finishing her project',
-    accentColor: '#dd2bbc', // Pink: #dd2bbc, Purple: 800080, Blue: 1d61d1, Wild: #0a3a13
-    captionBoxColor: '#ffc0cb', // Pink: #ffc0cb, Purple: ac62f4, Blue: acdeff, Wild: #1f8231
+    accentColor: '#dd2bbc', // Pink: #dd2bbc, Purple: #800080, Blue: #1d61d1
+    captionBoxColor: '#ffc0cb', // Pink: #ffc0cb, Purple: #ac62f4, Blue: #acdeff
     show_advanced: false,
     read_only: false,
     render_as_raw: false,
@@ -41,7 +41,7 @@ class App extends Component {
         signoff,
         render_as_raw,
         accentColor,
-        captionboxColor,
+        captionBoxColor,
       } = save_data;
       this.state = {
         ...this.state,
@@ -54,7 +54,7 @@ class App extends Component {
         render_as_raw,
         read_only, // not part of save data       
         accentColor,
-        captionboxColor,
+        captionBoxColor,
       };
     } catch (e) { }
   }
@@ -110,7 +110,7 @@ class App extends Component {
     return gif_height;
   }
 
-  getHeight () {
+  getHeight() {
     if (!this.ctx) {
       return 1;
     }
@@ -239,6 +239,29 @@ class App extends Component {
     this.ctx.fillText( text, x, y + fontSize + (fontSize+5) * num_lines );
   }
 
+  switchVariant(color) {
+    switch(color){
+      case "pink":
+        this.setState({
+          accentColor: '#dd2bbc',
+          captionBoxColor: '#ffc0cb',
+        });
+        break;
+      case "blue":
+        this.setState({
+          accentColor: '#1d61d1',
+          captionBoxColor: '#acdeff',
+        });
+        break;
+      case "purple":
+        this.setState({
+          accentColor: '#800080',
+          captionBoxColor: '#ac62f4',
+        });
+        break;
+    }
+  }
+
   _renderContent() {
     if (this.state.gif_url.substr(-5) === '.webm') {
       return (
@@ -333,7 +356,7 @@ class App extends Component {
       gif_height_adjust,
       signoff,      
       accentColor,
-      captionboxColor,
+      captionBoxColor,
     } = this.state;
     const save_data = {
       title,
@@ -343,7 +366,7 @@ class App extends Component {
       gif_height_adjust,
       signoff,
       accentColor,
-      captionboxColor,
+      captionBoxColor,
     };
     const save_link = Buffer.from(JSON.stringify(save_data)).toString("base64");
 
@@ -463,7 +486,12 @@ class App extends Component {
               onChange={event => this.setState({signoff: event.target.value})}
               value={this.state.signoff}
             />
-          </div>
+          </div> 
+          <div className="selectorbar">
+            <button className="selectorbutton pink" onClick={() => this.switchVariant("pink")}></button>
+            <button className="selectorbutton blue" onClick={() => this.switchVariant("blue")}></button>
+            <button className="selectorbutton purple" onClick={() => this.switchVariant("purple")}></button>
+          </div>         
           <div className="previewbar">
             <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
             <a href={`./?data=${save_link}`}>save</a>
