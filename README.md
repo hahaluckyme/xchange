@@ -17,6 +17,10 @@ https://www.pornhub.com/gifgenerator
 
 Every gif/webm will be resized to 800px width, so make sure the resolution is high enough.
 
+Or, you can find something on gfycat by right clicking and copying the video source.
+
+![alt text](/gfycat.png)
+
 ## 2. Write a caption
 
 Use the editor to write a saucy caption. Open the advanced settings if you want to edit the tagline / title / reposition the height.

@@ -263,7 +263,10 @@ class App extends Component {
   }
 
   _renderContent() {
-    if (this.state.gif_url.substr(-5) === '.webm') {
+    if (
+      this.state.gif_url.substr(-5) === '.webm'
+      || this.state.gif_url.substr(-4) === '.mp4'
+    ) {
       return (
         <video
           ref={ref => {
