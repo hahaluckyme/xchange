@@ -8,6 +8,7 @@ class App extends Component {
   state = {
     width: 800,
     title: 'X-Change',
+    title_size: '64',
     caption: `I was coding a web project for fun, but I was having trouble concentrating and kept opening tabs of my favorite subreddits. My roommate had a prescription for adderall, so I took a helping of his pills like I usually do and cracked down at my laptop.\n\nI was so focused, I didn't even notice I'd changed, or that he came into my room until I felt a hand on my ass.`,
     tagline: 'The Fast-Acting, Temporary, Gender-Swapping Pill',
     gif_url: 'https://giant.gfycat.com/BabyishPleasingFantail.webm',
@@ -52,7 +53,7 @@ class App extends Component {
         gif_height_adjust,
         signoff,
         render_as_raw,
-        read_only, // not part of save data       
+        read_only, // not part of save data
         accentColor,
         captionBoxColor,
       };
@@ -160,17 +161,19 @@ class App extends Component {
   drawTitle() {
     const text = this.state.title;
     var x = 16;
-    var y = 66;
-    this.ctx.font = "bold 64px Aardvark Cafe";
+    var y = 13;
+    this.ctx.font = "bold " + this.state.title_size + "px Aardvark Cafe";
     this.ctx.strokeStyle = this.state.accentColor;
     this.ctx.miterLimit = 8;
     this.ctx.shadowColor = this.state.accentColor;
     this.ctx.shadowBlur = 12;
     this.ctx.lineWidth = 5;
     this.ctx.textAlign = 'left';
+    this.ctx.textBaseline = 'top';
     this.ctx.strokeText(text, x, y);
     this.ctx.fillStyle = 'white';
     this.ctx.fillText(text, x, y);
+    this.ctx.textBaseline = 'alphabetic';
   }
 
   drawTagline() {
@@ -353,16 +356,18 @@ class App extends Component {
 
     const {
       title,
+      title_size,
       caption,
       tagline,
       gif_url,
       gif_height_adjust,
-      signoff,      
+      signoff,
       accentColor,
       captionBoxColor,
     } = this.state;
     const save_data = {
       title,
+      title_size,
       caption,
       tagline,
       gif_url,
@@ -436,6 +441,15 @@ class App extends Component {
                 </div>
                 <div className="input">
                   <span>
+                    pill size
+                  </span>
+                  <input
+                    onChange={event => this.setState({title_size: event.target.value})}
+                    value={this.state.title_size}
+                  />
+                </div>
+                <div className="input">
+                  <span>
                     tagline
                   </span>
                   <input
@@ -489,12 +503,12 @@ class App extends Component {
               onChange={event => this.setState({signoff: event.target.value})}
               value={this.state.signoff}
             />
-          </div> 
+          </div>
           <div className="selectorbar">
             <button className="selectorbutton pink" onClick={() => this.switchVariant("pink")}></button>
             <button className="selectorbutton blue" onClick={() => this.switchVariant("blue")}></button>
             <button className="selectorbutton purple" onClick={() => this.switchVariant("purple")}></button>
-          </div>         
+          </div>
           <div className="previewbar">
             <a href="https://github.com/hahaluckyme/xchange#how-to-make-a-caption">instructions</a>
             <a href={`./?data=${save_link}`}>save</a>
