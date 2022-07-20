@@ -28,6 +28,6 @@
   ],
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "terser": "^3.14.1"
+    "terser": "^4.8.1"
   }
 }
